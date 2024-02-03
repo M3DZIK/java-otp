@@ -8,6 +8,9 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
+/**
+ * OTP parameters for TOTP and HOTP.
+ */
 @AllArgsConstructor
 @Builder(builderClassName = "ParametersBuilder")
 @Getter
@@ -30,7 +33,7 @@ public final class OneTimePasswordParameters {
     private Counter counter;
 
     public static ParametersBuilder builder() {
-        return new ParametersBuilder(){
+        return new ParametersBuilder() {
             @Override
             public OneTimePasswordParameters build() throws IllegalArgumentException {
                 // add default period parameter for TOTP
@@ -44,7 +47,7 @@ public final class OneTimePasswordParameters {
     }
 
     /**
-     * Encode parameters to OTPAuth URL.
+     * Encode the parameters as OTPAuth URL.
      * @return The encoded OTPAuth URL.
      */
     public String buildOTPAuthURL() {

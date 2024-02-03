@@ -9,6 +9,9 @@ import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * HMAC-based one-time password (HOTP) generator.
+ */
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public final class HOTPGenerator {
     private OneTimePasswordParameters params;

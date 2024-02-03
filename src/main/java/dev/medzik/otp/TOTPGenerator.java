@@ -3,6 +3,9 @@ package dev.medzik.otp;
 import java.time.Clock;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Time-based one-time password (TOTP) generator.
+ */
 public final class TOTPGenerator {
     /**
      * Generate TOTP code from the given parameters for the current period.

@@ -8,6 +8,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * TOTP and HOTP OTPAuth URI parser.
+ */
 public final class OneTimePasswordParser {
     /**
      * Parses the given OTP URI and returns the corresponding parameters.
