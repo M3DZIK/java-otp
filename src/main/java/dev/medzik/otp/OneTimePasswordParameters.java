@@ -16,11 +16,10 @@ public final class OneTimePasswordParameters {
     @NonNull
     private OneTimePasswordType type;
     @NonNull
-    private Secret secret;
-    @NonNull
     private Label label;
-    @NonNull
     private Issuer issuer;
+    @NonNull
+    private Secret secret;
     @NonNull
     @Builder.Default
     private Algorithm algorithm = Algorithm.SHA1;
@@ -44,8 +43,51 @@ public final class OneTimePasswordParameters {
         };
     }
 
-    public String getEncoded() {
-        return null;
+    /**
+     * Encode parameters to OTPAuth URL.
+     * @return The encoded OTPAuth URL.
+     */
+    public String buildOTPAuthURL() {
+        StringBuilder sb = new StringBuilder();
+
+        // scheme
+        sb.append("otpauth://");
+
+        // otp type
+        sb.append(type.getValue()).append("/");
+
+        // label
+        sb.append(label.getEncoded());
+
+        // secret
+        sb.append("?secret=").append(secret.getEncoded());
+
+        // issuer
+        if (issuer != null && issuer.getValue() != null) {
+            sb.append("&issuer=").append(issuer.getEncoded());
+        }
+
+        // algorithm
+        if (algorithm != Algorithm.SHA1) {
+            sb.append("&algorithm=").append(algorithm.getValue());
+        }
+
+        // digits
+        if (digits != Digits.SIX) {
+            sb.append("&digits=").append(digits.getValue());
+        }
+
+        // period
+        if (type == OneTimePasswordType.TOTP && period != Period.THIRTY) {
+            sb.append("&period=").append(period.getValue());
+        }
+
+        // counter
+        if (type == OneTimePasswordType.HOTP) {
+            sb.append("&counter=").append(counter.getValue());
+        }
+
+        return sb.toString();
     }
 
     @AllArgsConstructor
@@ -92,6 +134,14 @@ public final class OneTimePasswordParameters {
     @Getter
     public final static class Label {
         private final String value;
+
+        public String getEncoded() {
+            try {
+                return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+            } catch (UnsupportedEncodingException e) {
+                throw new IllegalStateException("URL Encoding should be supported");
+            }
+        }
     }
 
     @AllArgsConstructor
@@ -117,6 +167,19 @@ public final class OneTimePasswordParameters {
 
         private final String value;
         private final String hmacAlgorithm;
+
+        public static Algorithm valueOfParam(String value) throws IllegalArgumentException {
+            switch (value.toLowerCase()) {
+                case "sha1":
+                    return SHA1;
+                case "sha256":
+                    return SHA256;
+                case "sha512":
+                    return SHA512;
+                default:
+                    throw new IllegalArgumentException("Invalid value: " + value);
+            }
+        }
     }
 
     @AllArgsConstructor

@@ -39,7 +39,7 @@ public final class OneTimePasswordParser {
                     paramsBuilder.issuer(new OneTimePasswordParameters.Issuer(param.getValue()));
                     break;
                 case "algorithm":
-                    paramsBuilder.algorithm(OneTimePasswordParameters.Algorithm.valueOf(param.getValue()));
+                    paramsBuilder.algorithm(OneTimePasswordParameters.Algorithm.valueOfParam(param.getValue()));
                     break;
                 case "digits":
                     paramsBuilder.digits(OneTimePasswordParameters.Digits.valueOf(Integer.parseInt(param.getValue())));

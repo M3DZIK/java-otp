@@ -6,8 +6,10 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum OneTimePasswordType {
-    TOTP,
-    HOTP;
+    TOTP("totp"),
+    HOTP("hotp");
+
+    private final String value;
 
     public static OneTimePasswordType get(String value) throws IllegalArgumentException {
         switch (value.toLowerCase()) {
