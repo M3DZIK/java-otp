@@ -9,10 +9,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TOTPGeneratorTests {
     @Test
     public void testGenerateTOTP() throws InterruptedException {
-        OneTimePasswordParameters params = OneTimePasswordParameters.builder()
-                .type(OneTimePasswordType.TOTP)
-                .secret(OneTimePasswordParameters.Secret.generate())
-                .label(new OneTimePasswordParameters.Label("test"))
+        OTPParameters params = OTPParameters.builder()
+                .type(OTPType.TOTP)
+                .secret(OTPParameters.Secret.generate())
+                .label(new OTPParameters.Label("test"))
                 .build();
 
         String code = TOTPGenerator.now(params);
@@ -26,10 +26,10 @@ public class TOTPGeneratorTests {
 
     @Test
     public void testTOTP() {
-        OneTimePasswordParameters params = OneTimePasswordParameters.builder()
-                .type(OneTimePasswordType.TOTP)
-                .secret(new OneTimePasswordParameters.Secret("JBSWY3DPEHPK3PXP"))
-                .label(new OneTimePasswordParameters.Label("test"))
+        OTPParameters params = OTPParameters.builder()
+                .type(OTPType.TOTP)
+                .secret(new OTPParameters.Secret("JBSWY3DPEHPK3PXP"))
+                .label(new OTPParameters.Label("test"))
                 .build();
 
         assertEquals(TOTPGenerator.at(params, 1707566984), "785021");

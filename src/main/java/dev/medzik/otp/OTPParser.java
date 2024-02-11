@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * TOTP and HOTP OTPAuth URI parser.
  */
-public final class OneTimePasswordParser {
+public final class OTPParser {
     /**
      * Parses the given OTP URI and returns the corresponding parameters.
      * @param uri The OTP Auth URI to parse.
@@ -19,39 +19,39 @@ public final class OneTimePasswordParser {
      * @throws URISyntaxException If the given URI is invalid.
      * @throws IllegalArgumentException If any parameter in the URI is invalid.
      */
-    public static OneTimePasswordParameters parse(String uri) throws URISyntaxException, IllegalArgumentException {
-        OneTimePasswordParameters.ParametersBuilder paramsBuilder = OneTimePasswordParameters.builder();
+    public static OTPParameters parse(String uri) throws URISyntaxException, IllegalArgumentException {
+        OTPParameters.ParametersBuilder paramsBuilder = OTPParameters.builder();
 
         URI parsedUri = new URI(uri);
 
         String type = parsedUri.getHost();
-        paramsBuilder.type(OneTimePasswordType.get(type));
+        paramsBuilder.type(OTPType.get(type));
 
         // omit the leading "/"
         String label = parsedUri.getPath().substring(1);
-        paramsBuilder.label(new OneTimePasswordParameters.Label(label));
+        paramsBuilder.label(new OTPParameters.Label(label));
 
         Map<String, String> query = splitQuery(parsedUri);
 
         for (Map.Entry<String, String> param : query.entrySet()) {
             switch (param.getKey()) {
                 case "secret":
-                    paramsBuilder.secret(new OneTimePasswordParameters.Secret(param.getValue()));
+                    paramsBuilder.secret(new OTPParameters.Secret(param.getValue()));
                     break;
                 case "issuer":
-                    paramsBuilder.issuer(new OneTimePasswordParameters.Issuer(param.getValue()));
+                    paramsBuilder.issuer(new OTPParameters.Issuer(param.getValue()));
                     break;
                 case "algorithm":
-                    paramsBuilder.algorithm(OneTimePasswordParameters.Algorithm.valueOfParam(param.getValue()));
+                    paramsBuilder.algorithm(OTPParameters.Algorithm.valueOfParam(param.getValue()));
                     break;
                 case "digits":
-                    paramsBuilder.digits(OneTimePasswordParameters.Digits.valueOf(Integer.parseInt(param.getValue())));
+                    paramsBuilder.digits(OTPParameters.Digits.valueOf(Integer.parseInt(param.getValue())));
                     break;
                 case "period":
-                    paramsBuilder.period(OneTimePasswordParameters.Period.valueOf(Integer.parseInt(param.getValue())));
+                    paramsBuilder.period(OTPParameters.Period.valueOf(Integer.parseInt(param.getValue())));
                     break;
                 case "counter":
-                    paramsBuilder.counter(new OneTimePasswordParameters.Counter(Long.parseLong(param.getValue())));
+                    paramsBuilder.counter(new OTPParameters.Counter(Long.parseLong(param.getValue())));
                     break;
             }
         }

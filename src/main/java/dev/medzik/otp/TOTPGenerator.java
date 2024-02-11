@@ -13,7 +13,7 @@ public final class TOTPGenerator {
      * @return The TOTP code.
      * @throws IllegalArgumentException If the OTP type is not TOTP.
      */
-    public static String now(OneTimePasswordParameters params) throws IllegalArgumentException {
+    public static String now(OTPParameters params) throws IllegalArgumentException {
         checkOtpType(params);
         long counter = calculateCounter(Clock.systemUTC(), params.getPeriod());
         return HOTPGenerator.generate(params, counter);
@@ -25,7 +25,7 @@ public final class TOTPGenerator {
      * @return The TOTP code.
      * @throws IllegalArgumentException If the OTP type is not TOTP.
      */
-    public static String at(OneTimePasswordParameters params, long unixSeconds) throws IllegalArgumentException {
+    public static String at(OTPParameters params, long unixSeconds) throws IllegalArgumentException {
         checkOtpType(params);
         long counter = calculateCounter(unixSeconds, params.getPeriod());
         return HOTPGenerator.generate(params, counter);
@@ -38,7 +38,7 @@ public final class TOTPGenerator {
      * @return True if the code is valid, false otherwise.
      * @throws IllegalArgumentException If the OTP type is not TOTP.
      */
-    public static boolean verify(OneTimePasswordParameters params, String code) throws IllegalArgumentException {
+    public static boolean verify(OTPParameters params, String code) throws IllegalArgumentException {
         return verify(params, code, 1);
     }
 
@@ -50,23 +50,23 @@ public final class TOTPGenerator {
      * @return True if the code is valid, false otherwise.
      * @throws IllegalArgumentException If the OTP type is not TOTP.
      */
-    public static boolean verify(OneTimePasswordParameters params, String code, int counterOffset) throws IllegalArgumentException {
+    public static boolean verify(OTPParameters params, String code, int counterOffset) throws IllegalArgumentException {
         checkOtpType(params);
         long counter = calculateCounter(Clock.systemUTC(), params.getPeriod());
         return HOTPGenerator.verify(params, code, counter, counterOffset);
     }
 
-    private static void checkOtpType(OneTimePasswordParameters params) throws IllegalArgumentException {
-        if (params.getType() != OneTimePasswordType.TOTP) {
+    private static void checkOtpType(OTPParameters params) throws IllegalArgumentException {
+        if (params.getType() != OTPType.TOTP) {
             throw new IllegalArgumentException("Invalid OTP type");
         }
     }
 
-    private static long calculateCounter(long unixSeconds, OneTimePasswordParameters.Period period) {
+    private static long calculateCounter(long unixSeconds, OTPParameters.Period period) {
         return TimeUnit.SECONDS.toMillis(unixSeconds) / TimeUnit.SECONDS.toMillis(period.getValue());
     }
 
-    private static long calculateCounter(Clock clock, OneTimePasswordParameters.Period period) {
+    private static long calculateCounter(Clock clock, OTPParameters.Period period) {
         return clock.millis() / TimeUnit.SECONDS.toMillis(period.getValue());
     }
 }

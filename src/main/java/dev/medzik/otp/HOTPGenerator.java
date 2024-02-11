@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
  */
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public final class HOTPGenerator {
-    private OneTimePasswordParameters params;
+    private OTPParameters params;
 
     /**
      * Generate HOTP code from the given parameters for the given counter.
@@ -23,7 +23,7 @@ public final class HOTPGenerator {
      * @return The HOTP code.
      * @throws IllegalArgumentException If the counter is negative.
      */
-    public static String generate(OneTimePasswordParameters params, long counter) throws IllegalArgumentException {
+    public static String generate(OTPParameters params, long counter) throws IllegalArgumentException {
         return new HOTPGenerator(params).generate(counter);
     }
 
@@ -35,7 +35,7 @@ public final class HOTPGenerator {
      * @return True if the code is valid, false otherwise.
      * @throws IllegalArgumentException If the counter is negative.
      */
-    public static boolean verify(OneTimePasswordParameters params, String code, long counter) throws IllegalArgumentException {
+    public static boolean verify(OTPParameters params, String code, long counter) throws IllegalArgumentException {
         return verify(params, code, counter, 0);
     }
 
@@ -48,7 +48,7 @@ public final class HOTPGenerator {
      * @return True if the code is valid, false otherwise.
      * @throws IllegalArgumentException If the counter is negative.
      */
-    public static boolean verify(OneTimePasswordParameters params, String code, long counter, int counterOffset) throws IllegalArgumentException {
+    public static boolean verify(OTPParameters params, String code, long counter, int counterOffset) throws IllegalArgumentException {
         if (code.length() != params.getDigits().getValue()) {
             return false;
         }

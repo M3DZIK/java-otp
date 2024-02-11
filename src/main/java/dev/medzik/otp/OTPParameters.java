@@ -15,9 +15,9 @@ import java.security.SecureRandom;
 @Builder(builderClassName = "ParametersBuilder")
 @Getter
 @Setter
-public final class OneTimePasswordParameters {
+public final class OTPParameters {
     @NonNull
-    private OneTimePasswordType type;
+    private OTPType type;
     @NonNull
     private Label label;
     private Issuer issuer;
@@ -35,9 +35,9 @@ public final class OneTimePasswordParameters {
     public static ParametersBuilder builder() {
         return new ParametersBuilder() {
             @Override
-            public OneTimePasswordParameters build() throws IllegalArgumentException {
+            public OTPParameters build() throws IllegalArgumentException {
                 // add default period parameter for TOTP
-                if (super.type == OneTimePasswordType.TOTP && super.period == null) {
+                if (super.type == OTPType.TOTP && super.period == null) {
                     super.period = Period.THIRTY;
                 }
 
@@ -81,12 +81,12 @@ public final class OneTimePasswordParameters {
         }
 
         // period
-        if (type == OneTimePasswordType.TOTP && period != Period.THIRTY) {
+        if (type == OTPType.TOTP && period != Period.THIRTY) {
             sb.append("&period=").append(period.getValue());
         }
 
         // counter
-        if (type == OneTimePasswordType.HOTP) {
+        if (type == OTPType.HOTP) {
             sb.append("&counter=").append(counter.getValue());
         }
 

@@ -5,13 +5,13 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum OneTimePasswordType {
+public enum OTPType {
     TOTP("totp"),
     HOTP("hotp");
 
     private final String value;
 
-    public static OneTimePasswordType get(String value) throws IllegalArgumentException {
+    public static OTPType get(String value) throws IllegalArgumentException {
         switch (value.toLowerCase()) {
             case "totp":
                 return TOTP;
