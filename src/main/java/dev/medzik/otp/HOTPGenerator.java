@@ -20,11 +20,47 @@ public final class HOTPGenerator {
      * Generate HOTP code from the given parameters for the given counter.
      * @param params The OTP parameters.
      * @param counter The HOTP counter.
-     * @return The generated code.
+     * @return The HOTP code.
      * @throws IllegalArgumentException If the counter is negative.
      */
     public static String generate(OneTimePasswordParameters params, long counter) throws IllegalArgumentException {
         return new HOTPGenerator(params).generate(counter);
+    }
+
+    /**
+     * Check if the given HOTP code is valid.
+     * @param params The OTP parameters.
+     * @param code The HOTP code.
+     * @param counter The counter.
+     * @return True if the code is valid, false otherwise.
+     * @throws IllegalArgumentException If the counter is negative.
+     */
+    public static boolean verify(OneTimePasswordParameters params, String code, long counter) throws IllegalArgumentException {
+        return verify(params, code, counter, 0);
+    }
+
+    /**
+     * Check if the given HOTP code is valid.
+     * @param params The OTP parameters.
+     * @param code The HOTP code.
+     * @param counter The counter.
+     * @param counterOffset The counter offset.
+     * @return True if the code is valid, false otherwise.
+     * @throws IllegalArgumentException If the counter is negative.
+     */
+    public static boolean verify(OneTimePasswordParameters params, String code, long counter, int counterOffset) throws IllegalArgumentException {
+        if (code.length() != params.getDigits().getValue()) {
+            return false;
+        }
+
+        for (int i = -counterOffset; i <= counterOffset; i++) {
+            String generatedCode = generate(params, counter + i);
+            if (code.equals(generatedCode)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private String generate(long counter) throws IllegalArgumentException {

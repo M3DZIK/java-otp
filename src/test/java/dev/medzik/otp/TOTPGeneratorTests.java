@@ -2,12 +2,13 @@ package dev.medzik.otp;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TOTPGeneratorTests {
     @Test
-    public void testGenerateTOTP() {
+    public void testGenerateTOTP() throws InterruptedException {
         OneTimePasswordParameters params = OneTimePasswordParameters.builder()
                 .type(OneTimePasswordType.TOTP)
                 .secret(OneTimePasswordParameters.Secret.generate())
@@ -15,8 +16,12 @@ public class TOTPGeneratorTests {
                 .build();
 
         String code = TOTPGenerator.now(params);
-
         assertNotNull(code);
+
+        assertTrue(TOTPGenerator.verify(params, code));
+
+        Thread.sleep(TimeUnit.SECONDS.toMillis(30));
+        assertTrue(TOTPGenerator.verify(params, code, 3));
     }
 
     @Test
