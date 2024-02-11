@@ -32,6 +32,8 @@ public final class OTPParameters {
     private Period period;
     private Counter counter;
 
+    public static class ParametersBuilder {}
+
     public static ParametersBuilder builder() {
         return new ParametersBuilder() {
             @Override
