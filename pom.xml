@@ -22,6 +22,14 @@
         <url>https://github.com/M3DZIK/java-otp.git</url>
     </scm>
 
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://github.com/M3DZIK/java-otp/blob/main/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <properties>
         <maven.compiler.source>9</maven.compiler.source>
         <maven.compiler.target>9</maven.compiler.target>
