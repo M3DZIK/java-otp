@@ -4,9 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <name>TOTP and HOTP library</name>
+    <description>TOTP and HOTP implementation</description>
     <groupId>dev.medzik</groupId>
     <artifactId>otp</artifactId>
     <version>1.0.0</version>
+    <url>https://github.com/M3DZIK/java-otp</url>
+
+    <developers>
+        <developer>
+            <name>M3DZIK</name>
+            <email>me@medzik.dev</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/M3DZIK/java-otp.git</url>
+    </scm>
 
     <properties>
         <maven.compiler.source>9</maven.compiler.source>
@@ -99,14 +113,13 @@
             </plugin>
 
             <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.13</version>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.3.0</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <publishingServerId>central</publishingServerId>
+                    <tokenAuth>true</tokenAuth>
                 </configuration>
             </plugin>
 
@@ -154,11 +167,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>
