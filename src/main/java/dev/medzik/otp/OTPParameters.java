@@ -115,6 +115,10 @@ public final class OTPParameters {
                     super.period = Period.THIRTY;
                 }
 
+                if (super.type == OTPType.HOTP && super.counter == null) {
+                    super.counter = new Counter(0);
+                }
+
                 return super.build();
             }
         };

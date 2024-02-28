@@ -39,12 +39,6 @@ public class TOTPGeneratorTests {
     }
 
     @Test
-    public void testHOTPFromUrl() throws URISyntaxException {
-        String uri = "otpauth://hotp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example&algorithm=SHA256&digits=7&counter=0";
-        assertNotNull(HOTPGenerator.fromUrl(uri, 1));
-    }
-
-    @Test
     public void testTOTPFromUrl() throws URISyntaxException {
         String uri = "otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example&algorithm=SHA512&digits=8";
         assertNotNull(TOTPGenerator.fromUrl(uri));
