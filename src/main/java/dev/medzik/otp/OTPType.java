@@ -2,6 +2,7 @@ package dev.medzik.otp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.experimental.PackagePrivate;
 
 @AllArgsConstructor
 @Getter
@@ -11,7 +12,8 @@ public enum OTPType {
 
     private final String value;
 
-    public static OTPType get(String value) throws IllegalArgumentException {
+    @PackagePrivate
+    static OTPType get(String value) throws IllegalArgumentException {
         switch (value.toLowerCase()) {
             case "totp":
                 return TOTP;

@@ -18,7 +18,7 @@ public final class HOTPGenerator {
     private OTPParameters params;
 
     /**
-     * Generate HOTP code from the given parameters for the given counter.
+     * Generates HOTP code from the given parameters for the given counter.
      *
      * @param params The OTP parameters.
      * @param counter The HOTP counter.
@@ -30,9 +30,10 @@ public final class HOTPGenerator {
     }
 
     /**
-     * Generate HOTP code from the OTPAuth URL.
+     * Generates HOTP code from the OTPAuth URL.
      *
      * @param url The OTPAuth URL.
+     * @param counter The HOTP counter.
      * @return The HOTP code.
      * @throws URISyntaxException If the OTP type is not TOTP.
      */

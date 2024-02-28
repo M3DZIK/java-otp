@@ -121,7 +121,7 @@ public final class OTPParameters {
     }
 
     /**
-     * Encode the parameters as OTPAuth URL.
+     * Encodes the parameters as OTPAuth URL.
      *
      * @return The encoded OTPAuth URL.
      */
@@ -176,7 +176,8 @@ public final class OTPParameters {
         private final byte[] value;
 
         /**
-         * Generate OTP secret with default number of bits.
+         * Generates OTP secret with default number of bits.
+         *
          * @return The randomly generated secret.
          */
         public static Secret generate() {
@@ -184,7 +185,8 @@ public final class OTPParameters {
         }
 
         /**
-         * Generate OTP secret with specified number of bits.
+         * Generates OTP secret with specified number of bits.
+         *
          * @param bits The number of bits to generate.
          * @return The randomly generated secret.
          */
