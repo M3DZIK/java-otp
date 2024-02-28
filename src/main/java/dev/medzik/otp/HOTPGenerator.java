@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -18,6 +19,7 @@ public final class HOTPGenerator {
 
     /**
      * Generate HOTP code from the given parameters for the given counter.
+     *
      * @param params The OTP parameters.
      * @param counter The HOTP counter.
      * @return The HOTP code.
@@ -28,7 +30,20 @@ public final class HOTPGenerator {
     }
 
     /**
-     * Check if the given HOTP code is valid.
+     * Generate HOTP code from the OTPAuth URL.
+     *
+     * @param url The OTPAuth URL.
+     * @return The HOTP code.
+     * @throws URISyntaxException If the OTP type is not TOTP.
+     */
+    public static String fromUrl(String url, long counter) throws URISyntaxException {
+        OTPParameters params = OTPParameters.parseUrl(url);
+        return generate(params, counter);
+    }
+
+    /**
+     * Checks if the given HOTP code is valid.
+     *
      * @param params The OTP parameters.
      * @param code The HOTP code.
      * @param counter The counter.
@@ -40,7 +55,8 @@ public final class HOTPGenerator {
     }
 
     /**
-     * Check if the given HOTP code is valid.
+     * Checks if the given HOTP code is valid.
+     *
      * @param params The OTP parameters.
      * @param code The HOTP code.
      * @param counter The counter.

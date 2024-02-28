@@ -1,5 +1,6 @@
 package dev.medzik.otp;
 
+import java.net.URISyntaxException;
 import java.time.Clock;
 import java.util.concurrent.TimeUnit;
 
@@ -9,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 public final class TOTPGenerator {
     /**
      * Generate TOTP code from the given parameters for the current period.
+     *
      * @param params The TOTP parameters.
      * @return The TOTP code.
      * @throws IllegalArgumentException If the OTP type is not TOTP.
@@ -21,6 +23,7 @@ public final class TOTPGenerator {
 
     /**
      * Generate TOTP code from the given parameters for the given period.
+     *
      * @param params The TOTP parameters.
      * @return The TOTP code.
      * @throws IllegalArgumentException If the OTP type is not TOTP.
@@ -32,7 +35,19 @@ public final class TOTPGenerator {
     }
 
     /**
-     * Check if the given HOTP code is valid.
+     * Generate TOTP code from the OTPAuth URL.
+     * @param url The OTPAuth URL.
+     * @return The TOTP code.
+     * @throws URISyntaxException If the OTP type is not TOTP.
+     */
+    public static String fromUrl(String url) throws URISyntaxException {
+        OTPParameters params = OTPParameters.parseUrl(url);
+        return now(params);
+    }
+
+    /**
+     * Checks if the given HOTP code is valid.
+     *
      * @param params The OTP parameters.
      * @param code The HOTP code.
      * @return True if the code is valid, false otherwise.
@@ -43,7 +58,8 @@ public final class TOTPGenerator {
     }
 
     /**
-     * Check if the given HOTP code is valid.
+     * Checks if the given HOTP code is valid.
+     *
      * @param params The OTP parameters.
      * @param code The HOTP code.
      * @param counterOffset The counter offset.

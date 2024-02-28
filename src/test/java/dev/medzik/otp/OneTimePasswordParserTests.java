@@ -10,7 +10,7 @@ public class OneTimePasswordParserTests {
     public void testParseTOTPFirst() throws Exception {
         String uri = "otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example";
 
-        OTPParameters params = OTPParser.parse(uri);
+        OTPParameters params = OTPParameters.parseUrl(uri);
 
         assertEquals(params.getType(), OTPType.TOTP);
         assertEquals(params.getSecret().getEncoded(), "JBSWY3DPEHPK3PXP");
@@ -25,7 +25,7 @@ public class OneTimePasswordParserTests {
     public void testParseTOTPSecond() throws Exception {
         String uri = "otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example&algorithm=SHA512&digits=8&period=15";
 
-        OTPParameters params = OTPParser.parse(uri);
+        OTPParameters params = OTPParameters.parseUrl(uri);
 
         assertEquals(params.getType(), OTPType.TOTP);
         assertEquals(params.getSecret().getEncoded(), "JBSWY3DPEHPK3PXP");
@@ -40,7 +40,7 @@ public class OneTimePasswordParserTests {
     public void testParseHOTPFirst() throws Exception {
         String uri = "otpauth://hotp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example&algorithm=SHA256&digits=7&counter=0";
 
-        OTPParameters params = OTPParser.parse(uri);
+        OTPParameters params = OTPParameters.parseUrl(uri);
 
         assertEquals(params.getType(), OTPType.HOTP);
         assertEquals(params.getSecret().getEncoded(), "JBSWY3DPEHPK3PXP");
