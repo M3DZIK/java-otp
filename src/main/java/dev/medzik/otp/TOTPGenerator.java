@@ -72,17 +72,31 @@ public final class TOTPGenerator {
         return HOTPGenerator.verify(params, code, counter, counterOffset);
     }
 
+    /**
+     * Calculates the TOTP counter for the given period and time.
+     *
+     * @param unixSeconds The unix time in seconds.
+     * @param period The TOTP period.
+     * @return The TOTP counter.
+     */
+    public static long calculateCounter(long unixSeconds, OTPParameters.Period period) {
+        return TimeUnit.SECONDS.toMillis(unixSeconds) / TimeUnit.SECONDS.toMillis(period.getValue());
+    }
+
+    /**
+     * Calculates the TOTP counter for the given period and time.
+     *
+     * @param clock The clock to use for calculating the current time.
+     * @param period The TOTP period.
+     * @return The TOTP counter.
+     */
+    public static long calculateCounter(Clock clock, OTPParameters.Period period) {
+        return clock.millis() / TimeUnit.SECONDS.toMillis(period.getValue());
+    }
+
     private static void checkOtpType(OTPParameters params) throws IllegalArgumentException {
         if (params.getType() != OTPType.TOTP) {
             throw new IllegalArgumentException("Invalid OTP type");
         }
-    }
-
-    private static long calculateCounter(long unixSeconds, OTPParameters.Period period) {
-        return TimeUnit.SECONDS.toMillis(unixSeconds) / TimeUnit.SECONDS.toMillis(period.getValue());
-    }
-
-    private static long calculateCounter(Clock clock, OTPParameters.Period period) {
-        return clock.millis() / TimeUnit.SECONDS.toMillis(period.getValue());
     }
 }
