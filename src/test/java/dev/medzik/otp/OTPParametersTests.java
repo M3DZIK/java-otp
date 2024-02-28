@@ -7,7 +7,7 @@ import java.net.URISyntaxException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class OneTimePasswordParametersTests {
+public class OTPParametersTests {
     @Test
     public void testBuildOTPAuthURL() throws URISyntaxException {
         String uri = "otpauth://hotp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example&algorithm=SHA256&digits=7&counter=0";
