@@ -11,7 +11,7 @@ First, add the library as a dependency to your Maven project.
 <dependency>
     <groupId>dev.medzik</groupId>
     <artifactId>otp</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 

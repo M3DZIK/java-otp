@@ -5,10 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <name>TOTP and HOTP library</name>
-    <description>TOTP and HOTP implementation</description>
+    <description>
+        A simple and easy-to-use library with TOTP (Time-based One-Time Password)
+        and HOTP (HMAC-based One-Time Password) implementations.
+    </description>
     <groupId>dev.medzik</groupId>
     <artifactId>otp</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <url>https://github.com/M3DZIK/java-otp</url>
 
     <developers>
