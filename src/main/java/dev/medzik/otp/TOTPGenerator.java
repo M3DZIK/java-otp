@@ -9,10 +9,10 @@ import java.util.concurrent.TimeUnit;
  */
 public final class TOTPGenerator {
     /**
-     * Generate TOTP code from the given parameters for the current period.
+     * Generates TOTP code from the given parameters for the current period.
      *
-     * @param params The TOTP parameters.
-     * @return The TOTP code.
+     * @param params the TOTP parameters
+     * @return The generated one-time code.
      * @throws IllegalArgumentException If the OTP type is not TOTP.
      */
     public static String now(OTPParameters params) throws IllegalArgumentException {
@@ -22,10 +22,10 @@ public final class TOTPGenerator {
     }
 
     /**
-     * Generate TOTP code from the given parameters for the given period.
+     * Generates TOTP code from the given parameters for the given period.
      *
-     * @param params The TOTP parameters.
-     * @return The TOTP code.
+     * @param params the TOTP parameters
+     * @return The generated one-time code.
      * @throws IllegalArgumentException If the OTP type is not TOTP.
      */
     public static String at(OTPParameters params, long unixSeconds) throws IllegalArgumentException {
@@ -35,9 +35,10 @@ public final class TOTPGenerator {
     }
 
     /**
-     * Generate TOTP code from the OTPAuth URL.
+     * Generates TOTP code from the OTPAuth URL.
+     *
      * @param url The OTPAuth URL.
-     * @return The TOTP code.
+     * @return The generated one-time code.
      * @throws URISyntaxException If the OTP type is not TOTP.
      */
     public static String fromUrl(String url) throws URISyntaxException {
@@ -46,11 +47,11 @@ public final class TOTPGenerator {
     }
 
     /**
-     * Checks if the given HOTP code is valid.
+     * Checks if the given TOTP code is valid.
      *
-     * @param params The OTP parameters.
-     * @param code The HOTP code.
-     * @return True if the code is valid, false otherwise.
+     * @param params the TOTP parameters
+     * @param code the one-time TOTP code to check
+     * @return True if the TOTP code is valid, false otherwise.
      * @throws IllegalArgumentException If the OTP type is not TOTP.
      */
     public static boolean verify(OTPParameters params, String code) throws IllegalArgumentException {
@@ -58,12 +59,12 @@ public final class TOTPGenerator {
     }
 
     /**
-     * Checks if the given HOTP code is valid.
+     * Checks if the given TOTP code is valid.
      *
-     * @param params The OTP parameters.
-     * @param code The HOTP code.
+     * @param params the TOTP parameters
+     * @param code the TOTP code to check
      * @param counterOffset The counter offset.
-     * @return True if the code is valid, false otherwise.
+     * @return True if the TOTP code is valid, false otherwise.
      * @throws IllegalArgumentException If the OTP type is not TOTP.
      */
     public static boolean verify(OTPParameters params, String code, int counterOffset) throws IllegalArgumentException {
@@ -75,9 +76,9 @@ public final class TOTPGenerator {
     /**
      * Calculates the TOTP counter for the given period and time.
      *
-     * @param unixSeconds The unix time in seconds.
-     * @param period The TOTP period.
-     * @return The TOTP counter.
+     * @param unixSeconds the unix time in seconds
+     * @param period the TOTP period
+     * @return The calculated counter.
      */
     public static long calculateCounter(long unixSeconds, OTPParameters.Period period) {
         return TimeUnit.SECONDS.toMillis(unixSeconds) / TimeUnit.SECONDS.toMillis(period.getValue());
@@ -86,9 +87,9 @@ public final class TOTPGenerator {
     /**
      * Calculates the TOTP counter for the given period and time.
      *
-     * @param clock The clock to use for calculating the current time.
-     * @param period The TOTP period.
-     * @return The TOTP counter.
+     * @param clock the clock to use for calculating the current time
+     * @param period the TOTP period
+     * @return The calculated counter.
      */
     public static long calculateCounter(Clock clock, OTPParameters.Period period) {
         return clock.millis() / TimeUnit.SECONDS.toMillis(period.getValue());

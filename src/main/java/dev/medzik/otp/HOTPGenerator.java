@@ -20,9 +20,9 @@ public final class HOTPGenerator {
     /**
      * Generates HOTP code from the given parameters for the given counter.
      *
-     * @param params The OTP parameters.
-     * @param counter The HOTP counter.
-     * @return The HOTP code.
+     * @param params the HOTP parameters
+     * @param counter the HOTP counter
+     * @return The generated one-time code.
      * @throws IllegalArgumentException If the counter is negative.
      */
     public static String generate(OTPParameters params, long counter) throws IllegalArgumentException {
@@ -32,9 +32,9 @@ public final class HOTPGenerator {
     /**
      * Generates HOTP code from the OTPAuth URL.
      *
-     * @param url The OTPAuth URL.
-     * @param counter The HOTP counter.
-     * @return The HOTP code.
+     * @param url the OTPAuth URL
+     * @param counter the HOTP counter
+     * @return The generated one-time code.
      * @throws URISyntaxException If the OTP type is not TOTP.
      */
     public static String fromUrl(String url, long counter) throws URISyntaxException {
@@ -45,9 +45,9 @@ public final class HOTPGenerator {
     /**
      * Checks if the given HOTP code is valid.
      *
-     * @param params The OTP parameters.
-     * @param code The HOTP code.
-     * @param counter The counter.
+     * @param params the OTP parameters
+     * @param code the one-time HOTP code to check
+     * @param counter the HOTP counter
      * @return True if the code is valid, false otherwise.
      * @throws IllegalArgumentException If the counter is negative.
      */
@@ -58,10 +58,10 @@ public final class HOTPGenerator {
     /**
      * Checks if the given HOTP code is valid.
      *
-     * @param params The OTP parameters.
-     * @param code The HOTP code.
-     * @param counter The counter.
-     * @param counterOffset The counter offset.
+     * @param params the OTP parameters
+     * @param code the one-time HOTP code to check
+     * @param counter The HOTP counter
+     * @param counterOffset the offset of the counter
      * @return True if the code is valid, false otherwise.
      * @throws IllegalArgumentException If the counter is negative.
      */

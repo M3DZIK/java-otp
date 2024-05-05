@@ -41,8 +41,8 @@ public final class OTPParameters {
     /**
      * Parses the given OTP URI and returns the corresponding parameters.
      *
-     * @param uri The OTP Auth URI to parse.
-     * @return The associated parameters.
+     * @param uri the OTP Auth URI to parse
+     * @return The parameters associated with the OTP.
      * @throws URISyntaxException If the given URI is invalid.
      * @throws IllegalArgumentException If any parameter in the URI is invalid.
      */
@@ -126,7 +126,7 @@ public final class OTPParameters {
     }
 
     /**
-     * Encodes the parameters as OTPAuth URL.
+     * Encodes the parameters as an OTPAuth URL.
      *
      * @return The encoded OTPAuth URL.
      */
@@ -191,7 +191,7 @@ public final class OTPParameters {
         /**
          * Generates OTP secret with specified number of bits.
          *
-         * @param bits The number of bits to generate.
+         * @param bits the number of bits to generate
          * @return The randomly generated secret.
          */
         public static Secret generate(int bits) {
