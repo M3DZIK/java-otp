@@ -24,8 +24,8 @@ public final class OTPParameters {
     @NonNull
     private OTPType type;
     @NonNull
-    private Label label;
-    private Issuer issuer;
+    private String label;
+    private String issuer;
     @NonNull
     private Secret secret;
     @NonNull
@@ -55,7 +55,7 @@ public final class OTPParameters {
 
         // omit the leading "/"
         String label = parsedUri.getPath().substring(1);
-        paramsBuilder.label(new OTPParameters.Label(label));
+        paramsBuilder.label(label);
 
         Map<String, String> query = splitQuery(parsedUri);
 
@@ -65,7 +65,7 @@ public final class OTPParameters {
                     paramsBuilder.secret(new OTPParameters.Secret(param.getValue()));
                     break;
                 case "issuer":
-                    paramsBuilder.issuer(new OTPParameters.Issuer(param.getValue()));
+                    paramsBuilder.issuer(param.getValue());
                     break;
                 case "algorithm":
                     paramsBuilder.algorithm(OTPParameters.Algorithm.valueOfParam(param.getValue()));
@@ -138,15 +138,14 @@ public final class OTPParameters {
         // otp type
         sb.append(type.getValue()).append("/");
 
-        // label
-        sb.append(label.getEncoded());
+        sb.append(uriEncode(label));
 
         // secret
         sb.append("?secret=").append(secret.getEncoded());
 
         // issuer
-        if (issuer != null && issuer.getValue() != null) {
-            sb.append("&issuer=").append(issuer.getEncoded());
+        if (issuer != null) {
+            sb.append("&issuer=").append(uriEncode(issuer));
         }
 
         // algorithm
@@ -211,34 +210,6 @@ public final class OTPParameters {
 
         public Secret(String value) {
             this.value = Base32Util.decode(value);
-        }
-    }
-
-    @AllArgsConstructor
-    @Getter
-    public final static class Label {
-        private final String value;
-
-        public String getEncoded() {
-            try {
-                return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
-            } catch (UnsupportedEncodingException e) {
-                throw new IllegalStateException("URL Encoding should be supported");
-            }
-        }
-    }
-
-    @AllArgsConstructor
-    @Getter
-    public final static class Issuer {
-        private final String value;
-
-        public String getEncoded() {
-            try {
-                return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
-            } catch (UnsupportedEncodingException e) {
-                throw new IllegalStateException("URL Encoding should be supported");
-            }
         }
     }
 
@@ -325,6 +296,14 @@ public final class OTPParameters {
 
         public static byte[] decode(String value) {
             return new Base32().decode(value);
+        }
+    }
+
+    private String uriEncode(String value) {
+        try {
+            return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            throw new IllegalStateException("URL Encoding should be supported");
         }
     }
 }
