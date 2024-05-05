@@ -38,8 +38,10 @@ OTPParameters params = OTPParameters.builder()
         // more options are available
         .build();
 
-String code = HOTPGenerator.generate(params, 1);
-boolean valid = HOTPGenerator.verify(params, code, 1);
+long counter = 1;
+
+String code = HOTPGenerator.generate(params, counter);
+boolean valid = HOTPGenerator.verify(params, code, counter);
 ```
 
 ### TOTP (Time-based One-Time Passwords)
