@@ -21,7 +21,7 @@ public class OTPParametersTests {
 
         assertEquals(decoded.getType(), OTPType.HOTP);
         assertEquals(decoded.getSecret().getEncoded(), "JBSWY3DPEHPK3PXP");
-        assertEquals(decoded.getIssuer().getValue(), "Example");
+        assertEquals(decoded.getIssuer(), "Example");
         assertEquals(decoded.getAlgorithm(), OTPParameters.Algorithm.SHA256);
         assertEquals(decoded.getDigits(), OTPParameters.Digits.SEVEN);
         assertNull(decoded.getPeriod());

@@ -14,7 +14,7 @@ public class OTPParserTests {
 
         assertEquals(params.getType(), OTPType.TOTP);
         assertEquals(params.getSecret().getEncoded(), "JBSWY3DPEHPK3PXP");
-        assertEquals(params.getIssuer().getValue(), "Example");
+        assertEquals(params.getIssuer(), "Example");
         assertEquals(params.getAlgorithm(), OTPParameters.Algorithm.SHA1);
         assertEquals(params.getDigits(), OTPParameters.Digits.SIX);
         assertEquals(params.getPeriod(), OTPParameters.Period.THIRTY);
@@ -29,7 +29,7 @@ public class OTPParserTests {
 
         assertEquals(params.getType(), OTPType.TOTP);
         assertEquals(params.getSecret().getEncoded(), "JBSWY3DPEHPK3PXP");
-        assertEquals(params.getIssuer().getValue(), "Example");
+        assertEquals(params.getIssuer(), "Example");
         assertEquals(params.getAlgorithm(), OTPParameters.Algorithm.SHA512);
         assertEquals(params.getDigits(), OTPParameters.Digits.EIGHT);
         assertEquals(params.getPeriod(), OTPParameters.Period.FIFTEEN);
@@ -44,7 +44,7 @@ public class OTPParserTests {
 
         assertEquals(params.getType(), OTPType.HOTP);
         assertEquals(params.getSecret().getEncoded(), "JBSWY3DPEHPK3PXP");
-        assertEquals(params.getIssuer().getValue(), "Example");
+        assertEquals(params.getIssuer(), "Example");
         assertEquals(params.getAlgorithm(), OTPParameters.Algorithm.SHA256);
         assertEquals(params.getDigits(), OTPParameters.Digits.SEVEN);
         assertNull(params.getPeriod());
