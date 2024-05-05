@@ -206,11 +206,11 @@ public final class OTPParameters {
         }
 
         public String getEncoded() {
-            return Base32Util.encode(value);
+            return new Base32().encodeToString(value);
         }
 
         public Secret(String value) {
-            this.value = Base32Util.decode(value);
+            this.value = new Base32().decode(value);
         }
     }
 
@@ -288,16 +288,6 @@ public final class OTPParameters {
     @Getter
     public final static class Counter {
         private final long value;
-    }
-
-    private final static class Base32Util {
-        public static String encode(byte[] value) {
-            return new Base32().encodeToString(value);
-        }
-
-        public static byte[] decode(String value) {
-            return new Base32().decode(value);
-        }
     }
 
     private String uriEncode(String value) {
