@@ -15,7 +15,6 @@ public class OTPParametersTests {
         OTPParameters params = OTPParameters.parseUrl(uri);
 
         String encoded = params.encodeToUrl();
-        System.out.println(encoded);
 
         OTPParameters decoded = OTPParameters.parseUrl(encoded);
 
