@@ -24,7 +24,8 @@ public final class OTPParameters {
     @NonNull
     private OTPType type;
     @NonNull
-    private String label;
+    @Builder.Default
+    private String label = "";
     private String issuer;
     @NonNull
     private Secret secret;

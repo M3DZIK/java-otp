@@ -13,7 +13,6 @@ public class TOTPGeneratorTests {
         OTPParameters params = OTPParameters.builder()
                 .type(OTPType.TOTP)
                 .secret(OTPParameters.Secret.generate())
-                .label(new OTPParameters.Label("test"))
                 .build();
 
         String code = TOTPGenerator.now(params);
@@ -30,7 +29,6 @@ public class TOTPGeneratorTests {
         OTPParameters params = OTPParameters.builder()
                 .type(OTPType.TOTP)
                 .secret(new OTPParameters.Secret("JBSWY3DPEHPK3PXP"))
-                .label(new OTPParameters.Label("test"))
                 .build();
 
         assertEquals(TOTPGenerator.at(params, 1707566984), "785021");

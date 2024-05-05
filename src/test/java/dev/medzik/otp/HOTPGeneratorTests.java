@@ -20,7 +20,6 @@ public class HOTPGeneratorTests {
         OTPParameters params = OTPParameters.builder()
                 .type(OTPType.HOTP)
                 .secret(new OTPParameters.Secret("JBSWY3DPEHPK3PXP"))
-                .label(new OTPParameters.Label("test"))
                 .build();
 
         String code = HOTPGenerator.generate(params, 1);
